@@ -37,14 +37,14 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://bitbucket.org/7dots/7docs/src/main/',
+            'https://github.com/7dots/7DOCS/tree/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://bitbucket.org/7dots/7docs/src/main/',
+            'https://github.com/7dots/7DOCS/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -76,6 +76,11 @@ const config = {
             label: 'Bitbucket',
             position: 'right',
           },
+					{
+						href: 'https://github.com/7dots',
+						label: 'GitHub',
+						position: 'right',
+					},
         ],
       },
       footer: {
@@ -110,6 +115,10 @@ const config = {
                 label: 'Bitbucket',
                 href: 'https://bitbucket.org/7dots',
               },
+							{
+								label: 'GitHub',
+								href: 'https://github.com/7dots',
+							},
             ],
           },
         ],
