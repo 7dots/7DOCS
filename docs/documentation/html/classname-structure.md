@@ -7,9 +7,9 @@ The structure is as follows: `custom-classes || bootstrap-classes || js-classes`
 ## Example
 ```html
 <div class="block || container || js-block">
-    <div class="block__wrapper || row">
+    <div class="block__row || row">
         <div class="block__header">
-            <h2 class="block__title js-block-title">I'm a title</h2>
+            <h2 class="block__title || js-block-title">I'm a title</h2>
         </div>
     </div>
 </div>
