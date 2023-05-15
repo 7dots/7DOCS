@@ -1,0 +1,80 @@
+# REM Units
+
+Where possible we should be using REM units for font sizes and other properties. The `html` selector in the `_layout.scss` has its `font-size` set to `62.5%` which is `10px` when basing it off a default system font size of `16px`.
+
+Doing this allows the site to be accessible to people who need to change their default system font size for readability, but will keep everything proportionate.
+
+This then makes it easier to work out the REM unit for the pixel size given in a design e.g.
+- `16px` would be `16 / 10 = 1.6rem`
+- `25px` would be `25 / 10 = 2.5rem`
+
+There are also a couple of mixins to make the conversion easier in the `air` `mixins` folder.
+
+`_rem-converter.scss` does just that, it will convert a given `px` unit to a `rem` unit.
+
+`_rem-property.scss` is a little more complex, but it will help you to convert whole style properties.
+
+You can see both files for example usage, but they are also below for reference.
+
+## REM Converter
+```scss
+/*
+	This function is used for converting a `px` unit to `rem` e.g.
+
+	font-size: remConverter(16px);
+	margin-bottom: remConverter(24px);
+*/
+
+@function remConverter($pxValue) {
+    @return #{calc(stripUnit($pxValue) / stripUnit(10))}rem;
+}
+```
+
+## REM Property
+```scss
+/*
+	This mixin is used for whole style properties e.g.
+
+	@include remProperty(padding, 24px 24px 24px 24px);
+	@include remProperty(margin, 12px 24px);
+
+	Pass in pixel values as the second argument and it will convert to `rem` units to keep the sizing
+	accessible based on the users default browser font size.
+*/
+
+@mixin remProperty($property, $values) {
+    $px: ();
+    $rem: ();
+
+    @each $value in $values {
+        @if $value == 0 or $value == auto {
+            $px: append($px, $value);
+            $rem: append($rem, $value);
+        } @else {
+            $unit: unit($value);
+            $val: stripUnit($value);
+
+            @if $unit == 'px' {
+                $px: append($px, $value);
+                $rem: append($rem, (calc($val / 10) + rem));
+            }
+
+            @if $unit == 'rem' {
+                $px: append($px, ($val * 10 + px));
+                $rem: append($rem, $value);
+            }
+        }
+    }
+
+    @if $px == $rem {
+        #{$property}: $px;
+    } @else {
+        #{$property}: $px;
+        #{$property}: $rem;
+    }
+}
+```
+
+##### References
+[https://www.aleksandrhovhannisyan.com/blog/use-rems-for-font-size/](https://www.aleksandrhovhannisyan.com/blog/use-rems-for-font-size/)
+[https://www.aleksandrhovhannisyan.com/blog/62-5-percent-font-size-trick/](https://www.aleksandrhovhannisyan.com/blog/62-5-percent-font-size-trick/)
